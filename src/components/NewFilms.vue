@@ -1,47 +1,28 @@
 <template>
     <div class="new-films">
-        <div class="film" v-for="card in cards" :key="card.name">
-            <div class="film-card" v-bind:style="{backgroundImage: 'url(' + card.img + ')'}">
+        <div class="film" v-for="film in films" :key="film.name">
+            <div class="film-card" v-bind:style="{backgroundImage: 'url(' + url[film.img] + ')'}">
                 <div class="specification">
-                    {{card.text}}
+                    {{film.text}}
                 </div>
             </div>
-            <p>{{card.name}}</p>
+            <p>{{film.name}}</p>
         </div>
     </div>
 </template>
 
 <script>
-import CartIMG from '../assets/img/Cartoon.png'
-import BatIMG from '../assets/img/Batman.png'
-import HollIMG from '../assets/img/Hollywood.png'
-import StripIMG from '../assets/img/Strippers.png'
+import Cartoon from '../assets/img/Cartoon.png'
+import Batman from '../assets/img/Batman.png'
+import Hollywood from '../assets/img/Hollywood.png'
+import Strippers from '../assets/img/Strippers.png'
+import Data from '../assets/json/data.json'
 
 export default {
     data(){
         return{
-            cards:[
-                {
-                img: CartIMG, 
-                text: 'Мульт в кино. Выпуск №103. Некогда грустить! Мульт в кино. Выпуск №103. Некогда грустить! Мульт в кино. Выпуск №103. Некогда грустить!', 
-                name: 'Мульт в кино. Выпуск №103. Некогда грустить!'
-                },
-                {
-                img: BatIMG, 
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 
-                name: 'Новый Бэтмен'
-                },
-                {
-                img: HollIMG, 
-                text: 'Фильм повествует о череде событий, произошедших в Голливуде в 1969 году, на закате его «золотого века». Известный актер Рик Далтон и его дублер Клифф Бут пытаются найти свое место в стремительно меняющемся мире киноиндустрии.', 
-                name: 'Однажды... в Голливуде'
-                },
-                {
-                img: StripIMG, 
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 
-                name: 'Стриптизёрши'
-                },
-            ]
+            films: Data.filmCards,
+            url: {Cartoon, Batman, Hollywood, Strippers}
         }
     }
 }

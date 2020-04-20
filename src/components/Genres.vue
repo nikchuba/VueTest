@@ -1,8 +1,8 @@
 <template>
-    <div class="genres" @click="test">
+    <div class="genres">
         <div class="genre" v-for="genre in genres" :key="genre.name" :style="{background: genre.color}">
-            <img :src="genre.smile" alt="">
-            <p>{{genre.name}}{{url}}</p>
+            <img :src="smiles[genre.smile]" alt="">
+            <p>{{genre.name}}</p>
         </div>
     </div>
 </template>
@@ -12,29 +12,14 @@ import Comedy from "../assets/img/Comedy.svg"
 import Drama from "../assets/img/Drama.svg"
 import Fantasy from "../assets/img/Fantasy.svg"
 import Horrors from "../assets/img/Horrors.svg"
-import Data from "../assets/json/genres.json"
+import Data from "../assets/json/data.json"
 
 export default {
     data: ()=>{
         return {
             genres: Data.genres,
-            smiles: [Comedy, Drama, Fantasy, Horrors]
+            smiles: {Comedy, Drama, Fantasy, Horrors}
         }
-    },
-    methods: {
-        test(){
-            for(let i=0; i<this.smiles.length; i++){
-                if(this.genres[i].smile === this.smiles[i].slice(5, this.smiles[i].length - 13)){
-                    var url = this.smiles[i];
-                    this.genres[i].smile = url;
-                    return this.genres[i].smile
-                }
-            }
-        }
-        // img(){
-        //     for(let i=0; i<Data.genres.length; i++)
-        //         return Data.genres[i].smile = Comedy
-        // }
     }
 }
 </script>
