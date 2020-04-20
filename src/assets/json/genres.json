@@ -1,0 +1,9 @@
+{
+    "genres":
+    [
+        {"smile": "Comedy","name": "Комедии", "color": "linear-gradient(136.27deg, #F2C94C 8.44%, #F29A4A 91.36%)"},
+        {"smile": "Drama","name": "Драмы", "color": "linear-gradient(136.27deg, #F2994A 8.44%, #EB5757 91.36%)"},
+        {"smile": "Fantasy","name": "Фантастика", "color": "linear-gradient(136.27deg, #56CCF2 8.44%, #2F80ED 91.36%)"},
+        {"smile": "Horrors","name": "Ужасы", "color": "linear-gradient(136.27deg, #828282 8.44%, #333333 91.36%)"}
+    ]
+}

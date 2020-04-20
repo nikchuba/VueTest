@@ -1,8 +1,8 @@
 <template>
-    <div class="genres">
-        <div class="genre" v-for="genre in genres" :key="genre.smile" :style="{background: genre.color}">
-            <img :src="genre.smile" alt="" srcset="">
-            <p>{{genre.name}}</p>
+    <div class="genres" @click="test">
+        <div class="genre" v-for="genre in genres" :key="genre.name" :style="{background: genre.color}">
+            <img :src="genre.smile" alt="">
+            <p>{{genre.name}}{{url}}</p>
         </div>
     </div>
 </template>
@@ -12,17 +12,29 @@ import Comedy from "../assets/img/Comedy.svg"
 import Drama from "../assets/img/Drama.svg"
 import Fantasy from "../assets/img/Fantasy.svg"
 import Horrors from "../assets/img/Horrors.svg"
+import Data from "../assets/json/genres.json"
 
 export default {
-    data(){
-        return{
-            genres: [
-                {smile: Comedy, name: 'Комедии', color: 'linear-gradient(136.27deg, #F2C94C 8.44%, #F29A4A 91.36%)'},
-                {smile: Drama, name: 'Драмы', color: 'linear-gradient(136.27deg, #F2994A 8.44%, #EB5757 91.36%)'},
-                {smile: Fantasy, name: 'Фантастика', color: 'linear-gradient(136.27deg, #56CCF2 8.44%, #2F80ED 91.36%)'},
-                {smile: Horrors, name: 'Ужасы', color: 'linear-gradient(136.27deg, #828282 8.44%, #333333 91.36%)'}
-            ]
+    data: ()=>{
+        return {
+            genres: Data.genres,
+            smiles: [Comedy, Drama, Fantasy, Horrors]
         }
+    },
+    methods: {
+        test(){
+            for(let i=0; i<this.smiles.length; i++){
+                if(this.genres[i].smile === this.smiles[i].slice(5, this.smiles[i].length - 13)){
+                    var url = this.smiles[i];
+                    this.genres[i].smile = url;
+                    return this.genres[i].smile
+                }
+            }
+        }
+        // img(){
+        //     for(let i=0; i<Data.genres.length; i++)
+        //         return Data.genres[i].smile = Comedy
+        // }
     }
 }
 </script>
