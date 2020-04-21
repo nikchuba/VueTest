@@ -2,12 +2,12 @@
   <div id="app">
     <login-form v-if="active" @loginClose="loginClose"></login-form>
     <div class="wrapper">
-      <app-header @loginOn="loginOn" :data="formData"></app-header>
+      <app-header @login="login" :data="formData"></app-header>
         <div id="nav">
           <router-link to="/films">Фильмы</router-link>
           <router-link to="/tvchannels">Телеканалы</router-link>
         </div>
-        <router-view></router-view>
+          <router-view></router-view>
     </div>
     
     <app-footer></app-footer>
@@ -31,13 +31,15 @@ export default {
     return{
       active: false,
       formData: {
-        login: '',
-        pass: ''
+        user: {
+          login: '',
+          pass: ''
+        }
       }
     }
   },
   methods: {
-    loginOn(status){
+    login(status){
       return this.active = status.active
     },
     loginClose(data){
@@ -121,6 +123,7 @@ export default {
 button{
   cursor: pointer;
 }
+
 
 
 </style>

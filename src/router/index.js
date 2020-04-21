@@ -15,6 +15,10 @@ const routes = [
     name: "TVChannels",
     component: () =>
       import("../views/TVChannels.vue")
+  },
+  {
+    path: "/",
+    redirect: {name: "Films"}
   }
 ];
 

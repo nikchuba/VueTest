@@ -4,13 +4,13 @@
             <img src="../assets/img/logo.svg" alt="" class="logo">
         </div>
         <form action="">
-            <input class="search" type="text" id="" placeholder="Поиск..." v-model="name">
+            <input class="search" type="text" id="" placeholder="Поиск...">
             <button class="tofind" type="submit">Найти</button>
         </form>
         <div class="right">
-            <div class="user-name">{{data.user}}</div>
-            <button class="login" :class="data.none" @click="loginOn">Войти</button>
-            <button class="logout none" :class="data.visible">Выйти</button>
+            <input class="user-name" v-model="data.user.login">
+            <button class="login" @click="login" v-if="!check()">Войти</button>
+            <button class="logout" @click="logout" v-if="check()">Выйти</button>
         </div>
     </div>
 </template>
@@ -27,22 +27,22 @@ export default {
         }
     },
     methods: {
-        loginOn(){
-            this.$emit('loginOn', {active: true, local: localStorage})
+        login(){
+            this.$emit('login', {active: true, local: localStorage})
+        },
+        check(){
+            if(this.data.user.login !== "" && this.data.user.pass !== "")
+                return true
+            else 
+                return false
+        },
+        logout(){
+            return [this.data.user.login = "", 
+            this.data.user.pass = ""]
         }
     },
     data: ()=>{
         return{name: ''}
-    },
-    mounted() {
-        if (localStorage.name) {
-            this.name = localStorage.name;
-    }
-    },
-    watch: {
-        name(newName) {
-            localStorage.name = newName;
-        }
     }
 }
 </script>
@@ -103,7 +103,7 @@ form{
     color: #FFFFFF;
     background: #E5261E;
     border-radius: 4px;
-    transition: 0.5s;
+    transition: .5s;
 }
 .login:hover {
     background: #CC221B;
@@ -133,7 +133,7 @@ form{
     line-height: 38px;
     color: #333333;
 }
-.logout, .logout:hover{
+.logout{
     width: 52px;
     height: 38px;
     font-family: Rubik-Medium;
@@ -142,11 +142,5 @@ form{
     color: #E5261E;
     background-color: inherit;
     cursor: pointer;
-}
-.none{
-    display: none;
-}
-.visible{
-    display: block;
 }
 </style>

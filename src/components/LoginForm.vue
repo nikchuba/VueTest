@@ -10,8 +10,9 @@
               <label for="checkbox"></label>
               <span>Запомнить</span>
             </div>
+            <h1 ref="alert"></h1>
         </form>
-        <button type="submit" @click="loginClose">Войти</button>
+        <button type="submit" @click="loginClose('Введите логин или пароль', $event)">Войти</button>
     </div>
   </div>
 </template>
@@ -21,14 +22,24 @@ export default {
   data: ()=>{
     return{
       user: {
-        login: ''
+        login: '',
+        pass: ''
       }
     }
   },
   methods: {
-    loginClose(){
-      this.$emit('loginClose', {active: false, user: this.user.login, none: 'none', visible: 'visible'})
-  }}}
+    loginClose(msg, event){
+      if(this.user.login == '' || this.user.pass == ''){
+        event.preventDefault();
+        let alert = this.$refs.alert;
+        alert.style.display = 'block'
+        alert.innerHTML = msg
+      } else {
+        this.$emit('loginClose', {user: this.user})
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -102,6 +113,11 @@ button{
   border-radius: 4px;
   transition: 0.5s;
 }
+button:hover{
+    background: #CC221B;
+    transition: 0.3s;
+    cursor: pointer;
+}
 span{
   font-family: Rubik-Regular;
   font-weight: normal;
@@ -146,5 +162,14 @@ span{
   height: 36px;
   width: 232px;
   align-items: left;
+}
+h1 {
+  font-family: Rubik-Regular;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 3px 6px;
+  display: none;
+  color: #E5261E;
+  border-radius: 4px;
 }
 </style>

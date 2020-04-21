@@ -8,8 +8,6 @@
 import TVChannel from "../components/TVChannel.vue"
 
 
-
-
 export default {
   components: {
     'tv-channel': TVChannel

@@ -39,6 +39,7 @@ export default {
     width: 280px;
     height: 208px;
     opacity: 0.8;
+    background: linear-gradient(120deg, red, green);
     box-shadow: inset 0px 0px 16px rgba(0, 0, 0, 0.15);
     border-radius: 6px;
     transition: 0.5s;
