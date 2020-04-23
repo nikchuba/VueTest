@@ -1,59 +1,67 @@
 <template>
   <div id="app">
-    <login-form v-if="active" @loginClose="loginClose"></login-form>
+    <transition name="fade">
+      <login-form
+        v-if="active"
+        @close="close"
+        @loginData="loginData"
+      ></login-form>
+    </transition>
     <div class="wrapper">
-      <app-header @login="login" :data="formData"></app-header>
-        <div id="nav">
-          <router-link to="/films">Фильмы</router-link>
-          <router-link to="/tvchannels">Телеканалы</router-link>
-        </div>
-          <router-view></router-view>
+      <app-header @login="login" :user="user"></app-header>
+      <div id="nav">
+        <router-link to="/films">Фильмы</router-link>
+        <router-link to="/tvchannels">Телеканалы</router-link>
+      </div>
+      <router-view></router-view>
     </div>
-    
+
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-
 import Header from "./views/Header.vue";
 import Footer from "./views/Footer.vue";
 import LoginForm from "./components/LoginForm.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     LoginForm,
     AppHeader: Header,
     AppFooter: Footer
   },
-  data(){
-    return{
+  data() {
+    return {
       active: false,
-      formData: {
-        user: {
-          login: '',
-          pass: ''
-        }
+      user: {
+        login: "",
+        pass: ""
       }
-    }
+    };
   },
   methods: {
-    login(status){
-      return this.active = status.active
+    loginData(user) {
+      if (user) {
+        this.active = false;
+        this.user = user;
+      }
     },
-    loginClose(data){
-      return [
-        this.active = data.active,
-        this.formData = data
-      ]
+    login(status) {
+      return (this.active = status.active);
+    },
+    close(data) {
+      return (this.active = data.active);
     }
   }
-}
+};
 </script>
 
 <style>
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -75,7 +83,7 @@ export default {
   src: url(./assets/fonts/rubik/Rubik-Medium.ttf);
 }
 
-#app{
+#app {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -116,14 +124,18 @@ export default {
 
 #nav a.router-link-exact-active {
   transition: 0.3s;
-  color: #E5261E;
-  border-bottom: 2px solid #E5261E;
+  color: #e5261e;
+  border-bottom: 2px solid #e5261e;
 }
 
-button{
+button {
   cursor: pointer;
 }
-
-
-
+.fade-enter-leave-active {
+  transition: 1s;
+}
+.fade-leave-to {
+  transition: 0.5s;
+  transform: rotateX(90deg);
+}
 </style>

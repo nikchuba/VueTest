@@ -5,19 +5,17 @@
 </template>
 
 <script>
-import TVChannel from "../components/TVChannel.vue"
-
+import TVChannel from "../components/TVChannel.vue";
 
 export default {
   components: {
-    'tv-channel': TVChannel
+    "tv-channel": TVChannel
   }
-}
+};
 </script>
 
 <style>
-
-.tv{
+.tv {
   max-width: 1196px;
   max-height: 696px;
   overflow: auto;
@@ -32,14 +30,13 @@ export default {
 }
 
 .tv::-webkit-scrollbar-track {
-  background: #F2F2F2;
+  background: #f2f2f2;
   border-radius: 2px;
 }
 
 .tv::-webkit-scrollbar-thumb {
-  background: #BDBDBD;
+  background: #bdbdbd;
   border-radius: 4px;
-  border: 2px solid #F2F2F2;
+  border: 2px solid #f2f2f2;
 }
-
 </style>

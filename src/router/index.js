@@ -7,18 +7,16 @@ const routes = [
   {
     path: "/films",
     name: "Films",
-    component: () =>
-      import("../views/Films.vue")
+    component: () => import("../views/Films.vue")
   },
   {
     path: "/tvchannels",
     name: "TVChannels",
-    component: () =>
-      import("../views/TVChannels.vue")
+    component: () => import("../views/TVChannels.vue")
   },
   {
     path: "/",
-    redirect: {name: "Films"}
+    redirect: { name: "Films" }
   }
 ];
 
