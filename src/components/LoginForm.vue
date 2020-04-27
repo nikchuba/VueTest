@@ -16,7 +16,7 @@
           placeholder="Пароль"
         />
         <div class="checkbox">
-          <input type="checkbox" id="checkbox" />
+          <input type="checkbox" id="checkbox" v-model="tick" />
           <label for="checkbox"></label>
           <span>Запомнить</span>
         </div>
@@ -36,7 +36,8 @@ export default {
       user: {
         login: "",
         pass: ""
-      }
+      },
+      tick: false
     };
   },
   methods: {
@@ -47,7 +48,14 @@ export default {
         alert.style.display = "block";
         alert.innerHTML = msg;
       } else {
-        this.$emit("loginData", this.user);
+        let user = this.user;
+        if (this.tick === true) {
+          localStorage.setItem("user", JSON.stringify(user));
+          this.$emit("loginData", { user, tick: this.tick });
+        } else if (this.tick === false) {
+          sessionStorage.setItem("user", JSON.stringify(user));
+          this.$emit("loginData", { user, tick: this.tick });
+        }
       }
     },
     close(event) {

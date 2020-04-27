@@ -4,11 +4,19 @@
       <img src="../assets/img/logo.svg" alt="" class="logo" />
     </div>
     <form action="">
-      <input class="search" type="text" id="" placeholder="Поиск..." />
-      <button class="tofind" type="submit">Найти</button>
+      <input 
+        class="search" 
+        type="text" 
+        id="" 
+        placeholder="Поиск..." 
+      />
+      <button 
+        class="tofind" 
+        type="submit"
+      >Найти</button>
     </form>
     <div class="right">
-      <input class="user-name" v-model="data.login" v-if="!check()" />
+      <input class="user-name" v-model="user.login" v-if="!check()" />
       <button class="login" @click="login" v-if="check()">Войти</button>
       <button class="logout" @click="logout" v-if="!check()">Выйти</button>
     </div>
@@ -18,10 +26,10 @@
 <script>
 export default {
   name: "Header",
-  props: ["user"],
+  props: ["data"],
   data: function() {
     return {
-      data: {
+      user: {
         login: "",
         pass: ""
       }
@@ -30,29 +38,26 @@ export default {
   methods: {
     login() {
       this.$emit("login", { active: true });
-      // console.log(localStorage);
     },
     logout() {
       localStorage.clear();
-      this.data = { login: "", pass: "" };
-      console.log(localStorage.user);
+      this.user = { login: "", pass: "" };
     },
     check() {
-      if (this.data.login === "") return true;
+      if (this.user.login === "") return true;
+      else return false;
     }
   },
   mounted() {
     if (localStorage.user) {
-      this.data = JSON.parse(localStorage.getItem("user"));
+      this.user = JSON.parse(localStorage.getItem("user"));
+    } else if (sessionStorage.user) {
+      this.user = JSON.parse(sessionStorage.getItem("user"));
     }
   },
   watch: {
-    user: function(val) {
-      if (val !== this.data) {
-        localStorage.setItem("user", JSON.stringify(val));
-        this.data = JSON.parse(localStorage.getItem("user"));
-        console.log(localStorage.user);
-      } else this.data = val;
+    data: function(data) {
+      if (data.user !== this.user) this.user = data.user;
     }
   }
 };
@@ -60,7 +65,7 @@ export default {
 
 <style scoped>
 .header {
-  width: 100%;
+  width: 1180px;
   height: 40px;
   display: flex;
   justify-content: space-between;

@@ -8,7 +8,7 @@
       ></login-form>
     </transition>
     <div class="wrapper">
-      <app-header @login="login" :user="user"></app-header>
+      <app-header @login="login" :data="data"></app-header>
       <div id="nav">
         <router-link to="/films">Фильмы</router-link>
         <router-link to="/tvchannels">Телеканалы</router-link>
@@ -35,17 +35,14 @@ export default {
   data() {
     return {
       active: false,
-      user: {
-        login: "",
-        pass: ""
-      }
+      data: {}
     };
   },
   methods: {
-    loginData(user) {
-      if (user) {
+    loginData(data) {
+      if (data) {
         this.active = false;
-        this.user = user;
+        this.data = data;
       }
     },
     login(status) {
