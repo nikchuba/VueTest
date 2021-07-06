@@ -8,12 +8,14 @@
       ></login-form>
     </transition>
     <div class="wrapper">
-      <app-header @login="login" :data="data"></app-header>
+      <app-header @signIn="signIn" :data="data"></app-header>
       <div id="nav">
         <router-link to="/films">Фильмы</router-link>
         <router-link to="/tvchannels">Телеканалы</router-link>
       </div>
-      <router-view></router-view>
+      <transition name="router">
+        <router-view></router-view>
+      </transition>
     </div>
 
     <app-footer></app-footer>
@@ -45,7 +47,7 @@ export default {
         this.data = data;
       }
     },
-    login(status) {
+    signIn(status) {
       return (this.active = status.active);
     },
     close(data) {
@@ -120,19 +122,85 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  transition: 0.3s;
   color: #e5261e;
   border-bottom: 2px solid #e5261e;
+  transition-delay: 0.2s;
+  transition-duration: 0.4s;
 }
 
 button {
   cursor: pointer;
 }
-.fade-enter-leave-active {
-  transition: 1s;
+
+.fade-enter-active {
+  animation-name: formOpen;
+  animation-duration: 0.5s;
 }
-.fade-leave-to {
-  transition: 0.5s;
-  transform: rotateX(90deg);
+@keyframes formOpen {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    transform: scale3d(1.2, 1.2, 1.2);
+    filter: contrast(1.2);
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: contrast(1);
+  }
+}
+.fade-leave-active {
+  animation-name: formClose;
+  animation-duration: 0.5s;
+}
+@keyframes formClose {
+  0% {
+    opacity: 1;
+    filter: contrast(1);
+  }
+  30% {
+    transform: scale3d(1.2, 1.2, 1.2);
+    filter: contrast(1.2);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.router-enter-active {
+  animation-name: routerEnter;
+  animation-delay: 0.2s;
+  animation-duration: 0.4s;
+}
+@keyframes routerEnter {
+  0% {
+    opacity: 0.4;
+    transform: scale3d(0.82, 0.82, 0.82);
+  }
+  40% {
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.router-leave-active {
+  animation: routerLeave 0.2s ease-in;
+}
+@keyframes routerLeave {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+  60% {
+    transform: scale3d(0.86, 0.86, 0.86);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale3d(0.8, 0.8, 0.8);
+  }
 }
 </style>

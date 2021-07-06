@@ -9,7 +9,7 @@
           {{ film.text }}
         </div>
       </div>
-      <p>{{ film.name }}</p>
+      <h3>{{ film.name }}</h3>
     </div>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
   opacity: 0.8;
   transition: 0.3s;
 }
-p {
+h3 {
   font-family: Rubik-Regular;
   font-weight: normal;
   font-size: 20px;

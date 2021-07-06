@@ -1,30 +1,34 @@
 <template>
   <div class="login-form" @click="close($event)">
     <div class="container">
-      <form>
-        <h3 class="form">Вход</h3>
-        <input
-          class="form"
-          type="text"
-          v-model.trim="user.login"
-          placeholder="Логин"
-        />
-        <input
-          class="form"
-          type="password"
-          v-model.trim="user.pass"
-          placeholder="Пароль"
-        />
-        <div class="checkbox">
-          <input type="checkbox" id="checkbox" v-model="tick" />
-          <label for="checkbox"></label>
-          <span>Запомнить</span>
+      <form @submit.prevent="login()">
+        <div class="form-wrapper">
+          <h3 class="form">Вход</h3>
+          <input
+            class="form form-input"
+            type="text"
+            v-model.trim="user.login"
+            placeholder="Логин"
+          />
+          <input
+            class="form form-input"
+            type="password"
+            v-model.trim="user.pass"
+            placeholder="Пароль"
+          />
+          <label class="checkbox">
+            <input class="check-input" type="checkbox" v-model="tick" />
+            <span class="check-box"></span>
+            Запомнить
+          </label>
+          <transition name="alert">
+            <p v-if="active">Введите логин или пароль</p>
+          </transition>
         </div>
-        <h1 ref="alert"></h1>
+        <button type="submit">
+          Войти
+        </button>
       </form>
-      <button type="submit" @click="login('Введите логин или пароль', $event)">
-        Войти
-      </button>
     </div>
   </div>
 </template>
@@ -37,16 +41,14 @@ export default {
         login: "",
         pass: ""
       },
-      tick: false
+      tick: false,
+      active: false
     };
   },
   methods: {
-    login(msg, event) {
-      if (this.user.login == "" || this.user.pass == "") {
-        event.preventDefault();
-        let alert = this.$refs.alert;
-        alert.style.display = "block";
-        alert.innerHTML = msg;
+    login() {
+      if (this.user.login === "" || this.user.pass === "") {
+        this.active = true;
       } else {
         let user = this.user;
         if (this.tick === true) {
@@ -97,15 +99,22 @@ h3 {
   width: 304px;
   height: 394px;
   border-radius: 8px;
-  padding: 36px 0px;
+  /* padding: 36px 0px; */
 }
-form {
-  margin: 0px 36px;
+.form-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-input {
+form {
+  margin: 36px 36px;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-input {
   width: 232px;
   height: 36px;
   font-family: Rubik-Regular;
@@ -115,7 +124,7 @@ input {
   color: #828282;
   border-bottom: 1px solid #333333;
 }
-input:focus {
+.form-input:focus {
   font-family: Rubik-Medium;
   color: #333333;
   font-weight: 500;
@@ -150,50 +159,54 @@ span {
   color: #333333;
   margin-left: 8px;
 }
-#checkbox {
-  display: none;
+.check {
+  padding: 1.5em;
 }
-#checkbox + label {
-  width: 16px;
-  height: 16px;
-  background: #ffffff;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border: 1px solid #333333;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.check-input {
+  position: absolute;
+  -webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
-#checkbox + label:before {
-  content: "✔";
-  font-size: 12px;
-  line-height: 12px;
-  opacity: 0;
-  transition: 0.3s;
+.check-box {
+  position: absolute;
+  margin-left: -1.5em;
+	width: 1em;
+	height: 1em;
+  background: url("../assets/img/check-off.svg") no-repeat;
 }
-#checkbox:checked + label {
-  border: 1px solid #333333;
+.check-input:checked + .check-box {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  background: url("../assets/img/check-on.svg") no-repeat;
 }
-#checkbox:checked + label:before {
-  color: #e5261e;
-  transition: 0.3s;
-  opacity: 1;
-}
-.checkbox {
-  display: inline-flex;
-  height: 36px;
-  width: 232px;
-  align-items: left;
-}
-h1 {
+p {
   font-family: Rubik-Regular;
   font-size: 16px;
   line-height: 19px;
   padding: 3px 6px;
-  display: none;
   color: #e5261e;
   border-radius: 4px;
+  user-select: none;
+}
+.alert-enter-active {
+  animation-name: formOpen;
+  animation-duration: 0.4s;
+}
+@keyframes formOpen {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    transform: scale3d(1.2, 1.12, 1.12);
+    opacity: 1;
+    background-color: #e5261e;
+    color: white;
+  }
+  100% {
+    opacity: 1;
+    filter: contrast(1);
+  }
 }
 </style>

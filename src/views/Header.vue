@@ -1,24 +1,19 @@
 <template>
-  <div class="header" role="header" @click="check">
+  <div class="header" role="header">
     <div class="left">
       <img src="../assets/img/logo.svg" alt="" class="logo" />
     </div>
     <form action="">
-      <input 
-        class="search" 
-        type="text" 
-        id="" 
-        placeholder="Поиск..." 
-      />
-      <button 
-        class="tofind" 
-        type="submit"
-      >Найти</button>
+      <input class="search" type="text" id="" placeholder="Поиск..." />
+      <button class="tofind" type="submit" @click.prevent="">Найти</button>
     </form>
     <div class="right">
-      <input class="user-name" v-model="user.login" v-if="!check()" />
-      <button class="login" @click="login" v-if="check()">Войти</button>
-      <button class="logout" @click="logout" v-if="!check()">Выйти</button>
+      <form @submit.prevent="rename" v-if="!check">
+        <input class="user-name" v-model="user.login"/>
+        <button class="save-new-name" type="submit"></button>
+      </form>
+      <button class="signin" @click="signIn" v-if="check">Войти</button>
+      <button class="logout" @click="logout" v-if="!check">Выйти</button>
     </div>
   </div>
 </template>
@@ -30,29 +25,43 @@ export default {
   data: function() {
     return {
       user: {
-        login: "",
-        pass: ""
+        login: undefined,
+        pass: undefined
       }
     };
   },
   methods: {
-    login() {
-      this.$emit("login", { active: true });
+    signIn() {
+      this.$emit("signIn", { active: true });
     },
     logout() {
-      localStorage.clear();
-      this.user = { login: "", pass: "" };
+      if (localStorage.user) localStorage.clear();
+      else if (sessionStorage.user) sessionStorage.clear();
+      this.user = { login: undefined, pass: undefined };
     },
+    rename() {
+      if (localStorage.user) {
+        let user = JSON.parse(localStorage.user);
+        user.login = this.user.login;
+        localStorage.setItem("user", JSON.stringify(user));
+      } else if (sessionStorage.user) {
+        let user = JSON.parse(sessionStorage.user);
+        user.login = this.user.login;
+        sessionStorage.setItem("user", JSON.stringify(user));
+      }
+    }
+  },
+  computed: {
     check() {
-      if (this.user.login === "") return true;
+      if (this.user.login === undefined) return true;
       else return false;
     }
   },
   mounted() {
     if (localStorage.user) {
-      this.user = JSON.parse(localStorage.getItem("user"));
+      this.user = JSON.parse(localStorage.user);
     } else if (sessionStorage.user) {
-      this.user = JSON.parse(sessionStorage.getItem("user"));
+      this.user = JSON.parse(sessionStorage.user);
     }
   },
   watch: {
@@ -109,7 +118,7 @@ form {
   font-style: normal;
   outline: none;
 }
-.login {
+.signin {
   right: 0px;
   width: 113px;
   height: 38px;
@@ -121,7 +130,7 @@ form {
   border-radius: 4px;
   transition: 0.5s;
 }
-.login:hover {
+.signin:hover {
   background: #cc221b;
   transition: 0.3s;
   cursor: pointer;
@@ -150,6 +159,12 @@ form {
   line-height: 38px;
   color: #333333;
 }
+.save-new-name{
+  background: none;
+  height: 38px;
+  width: 38px;
+  background: url("../assets/img/Tick.svg") no-repeat;
+}
 .logout {
   width: 52px;
   height: 38px;
@@ -160,4 +175,5 @@ form {
   background-color: inherit;
   cursor: pointer;
 }
+
 </style>

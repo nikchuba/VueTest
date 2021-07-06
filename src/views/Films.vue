@@ -1,11 +1,11 @@
 <template>
   <div class="films">
     <section>
-      <p>🔥 Новинки</p>
+      <p class="new">🔥 Новинки</p>
       <new-films></new-films>
     </section>
     <section>
-      <p>Жанры</p>
+      <p class="genres">Жанры</p>
       <genres></genres>
     </section>
   </div>
