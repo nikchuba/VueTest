@@ -1,57 +1,66 @@
 <template>
   <div id="app">
-    <login-form v-if="active" @loginClose="loginClose"></login-form>
+    <transition name="fade">
+      <login-form
+        v-if="active"
+        @close="close"
+        @loginData="loginData"
+      ></login-form>
+    </transition>
     <div class="wrapper">
-      <app-header @loginOn="loginOn" :data="formData"></app-header>
-        <div id="nav">
-          <router-link to="/films">Фильмы</router-link>
-          <router-link to="/tvchannels">Телеканалы</router-link>
-        </div>
+      <app-header @signIn="signIn" :data="data"></app-header>
+      <div id="nav">
+        <router-link to="/films">Фильмы</router-link>
+        <router-link to="/tvchannels">Телеканалы</router-link>
+      </div>
+      <transition name="router">
         <router-view></router-view>
+      </transition>
     </div>
-    
+
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-
 import Header from "./views/Header.vue";
 import Footer from "./views/Footer.vue";
 import LoginForm from "./components/LoginForm.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     LoginForm,
     AppHeader: Header,
     AppFooter: Footer
   },
-  data(){
-    return{
+  data() {
+    return {
       active: false,
-      formData: {
-        login: '',
-        pass: ''
-      }
-    }
+      data: {}
+    };
   },
   methods: {
-    loginOn(status){
-      return this.active = status.active
+    loginData(data) {
+      if (data) {
+        this.active = false;
+        this.data = data;
+      }
     },
-    loginClose(data){
-      return [
-        this.active = data.active,
-        this.formData = data
-      ]
+    signIn(status) {
+      return (this.active = status.active);
+    },
+    close(data) {
+      return (this.active = data.active);
     }
   }
-}
+};
 </script>
 
 <style>
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -73,7 +82,7 @@ export default {
   src: url(./assets/fonts/rubik/Rubik-Medium.ttf);
 }
 
-#app{
+#app {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -113,14 +122,85 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  transition: 0.3s;
-  color: #E5261E;
-  border-bottom: 2px solid #E5261E;
+  color: #e5261e;
+  border-bottom: 2px solid #e5261e;
+  transition-delay: 0.2s;
+  transition-duration: 0.4s;
 }
 
-button{
+button {
   cursor: pointer;
 }
 
+.fade-enter-active {
+  animation-name: formOpen;
+  animation-duration: 0.5s;
+}
+@keyframes formOpen {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    transform: scale3d(1.2, 1.2, 1.2);
+    filter: contrast(1.2);
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: contrast(1);
+  }
+}
+.fade-leave-active {
+  animation-name: formClose;
+  animation-duration: 0.5s;
+}
+@keyframes formClose {
+  0% {
+    opacity: 1;
+    filter: contrast(1);
+  }
+  30% {
+    transform: scale3d(1.2, 1.2, 1.2);
+    filter: contrast(1.2);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 
+.router-enter-active {
+  animation-name: routerEnter;
+  animation-delay: 0.2s;
+  animation-duration: 0.4s;
+}
+@keyframes routerEnter {
+  0% {
+    opacity: 0.4;
+    transform: scale3d(0.82, 0.82, 0.82);
+  }
+  40% {
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.router-leave-active {
+  animation: routerLeave 0.2s ease-in;
+}
+@keyframes routerLeave {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+  60% {
+    transform: scale3d(0.86, 0.86, 0.86);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale3d(0.8, 0.8, 0.8);
+  }
+}
 </style>

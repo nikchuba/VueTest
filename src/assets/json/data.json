@@ -1,0 +1,78 @@
+{
+    "genres":
+    [
+        {"smile": "Comedy","name": "Комедии", "color": "linear-gradient(136.27deg, #F2C94C 8.44%, #F29A4A 91.36%)"},
+        {"smile": "Drama","name": "Драмы", "color": "linear-gradient(136.27deg, #F2994A 8.44%, #EB5757 91.36%)"},
+        {"smile": "Fantasy","name": "Фантастика", "color": "linear-gradient(136.27deg, #56CCF2 8.44%, #2F80ED 91.36%)"},
+        {"smile": "Horrors","name": "Ужасы", "color": "linear-gradient(136.27deg, #828282 8.44%, #333333 91.36%)"}
+    ],
+    "filmCards": [
+        {
+            "img": "Cartoon", 
+            "text": "Мульт в кино. Выпуск №103. Некогда грустить! Мульт в кино. Выпуск №103. Некогда грустить! Мульт в кино. Выпуск №103. Некогда грустить!", 
+            "name": "Мульт в кино. Выпуск №103. Некогда грустить!"
+        },
+        {
+            "img": "Batman", 
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", 
+            "name": "Новый Бэтмен"
+        },
+        {
+            "img": "Hollywood", 
+            "text": "Фильм повествует о череде событий, произошедших в Голливуде в 1969 году, на закате его «золотого века». Известный актер Рик Далтон и его дублер Клифф Бут пытаются найти свое место в стремительно меняющемся мире киноиндустрии.", 
+            "name": "Однажды... в Голливуде"
+        },
+        {
+            "img": "Strippers", 
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
+            "name": "Стриптизёрши"
+        }
+    ],
+    "tvChannels": [
+        {
+            "logo": "FirstIMG", 
+            "name": "Первый канал", 
+            "broadcasts": [
+                {"name": "Новости (с субтитрами)", "time": "13:00"},
+                {"name": "Давай поженимся", "time": "14:00"},
+                {"name": "Другие новости", "time": "15:00"}
+            ]
+        },
+        {
+            "logo": "TwoByTwoIMG", 
+            "name": "2x2", 
+            "broadcasts": [
+                {"name": "МУЛЬТ ТВ. Сезон 4, 7 серия", "time": "13:00"},
+                {"name": "ПОДОЗРИТЕЛЬНАЯ СОВА. Сезон 7, 7 серия", "time": "14:00"},
+                {"name": "БУРДАШЕВ. Сезон 1, 20 серия", "time": "15:00"}
+            ]
+        },
+        {
+            "logo": "RBKIMG", 
+            "name": "РБК", 
+            "broadcasts": [
+                {"name": "ДЕНЬ. Горючая смесь: как бороться с суррогатом на АЗС", "time": "13:00"},
+                {"name": "ДЕНЬ. Главные темы", "time": "14:00"},
+                {"name": "Главные новости", "time": "15:00"}
+            ]
+        },
+        {
+            "logo": "AmediaIMG", 
+            "name": "AMEDIA PREMIUM", 
+            "broadcasts": [
+                {"name": "Клиент всегда мёртв", "time": "13:00"},
+                {"name": "Голодные игры: Сойка-пересмешница. Часть I", "time": "14:00"},
+                {"name": "Секс в большом городе", "time": "15:00"}
+            ]
+        },
+        {
+            "logo": "FirstIMG", 
+            "name": "Первый кана", 
+            "broadcasts": [
+                {"name": "Новости (с субтитрами)", "time": "13:00"},
+                {"name": "Давай поженимся", "time": "14:00"},
+                {"name": "Другие новости", "time": "15:00"}
+            ]
+        }
+    ]
+}
