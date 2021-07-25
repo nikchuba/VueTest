@@ -17,7 +17,7 @@
             placeholder="Пароль"
           />
           <label class="checkbox">
-            <input class="check-input" type="checkbox" v-model="tick" />
+            <input class="check-input" type="checkbox" v-model="tick"/>
             <span class="check-box"></span>
             Запомнить
           </label>
